@@ -6,7 +6,7 @@
     "node": "10.x"
   },
   "scripts": {
-    "start": "node server",
+    "start": "node server & node server/db/firebase.js",
     "build": "cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "cacheDirectories": [
@@ -14,7 +14,13 @@
     "react-ui/node_modules"
   ],
   "dependencies": {
-    "express": "^4.16.4"
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.16.4",
+    "firebase": "^5.9.3",
+    "pg": "^7.9.0",
+    "pg-hstore": "^2.3.2",
+    "puppeteer": "^1.14.0",
+    "sequelize": "^5.2.13"
   },
   "repository": {
     "type": "git",
