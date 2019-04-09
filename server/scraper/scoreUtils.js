@@ -60,8 +60,8 @@ const cleanForGoogle = (scoreTable) => {
   const googleArr = []
   for (let row in scoreTable) {
     if (row) {
-      const { position, player, id, par, bonus, today, thru, rnd_1, rnd_2, rnd_3, rnd_4, total } = scoreTable[row]
-      googleArr.push([position, player, id, par, bonus, today, thru, rnd_1, rnd_2, rnd_3, rnd_4, total])
+      const { position, player, par, bonus, today, thru, rnd_1, rnd_2, rnd_3, rnd_4, total } = scoreTable[row]
+      googleArr.push([position, player, par, bonus, today, thru, rnd_1, rnd_2, rnd_3, rnd_4, total])
     }
   }
   return googleArr

@@ -18,7 +18,7 @@ const googleMain = (batch) => {
       }
     })
 
-    const data = [{ range: 'liveData!A4:L90', values: batch }]
+    const data = [{ range: 'liveData!A4:K90', values: batch }]
     const resource = { data, valueInputOption: 'USER_ENTERED' }
 
     // write to google sheet

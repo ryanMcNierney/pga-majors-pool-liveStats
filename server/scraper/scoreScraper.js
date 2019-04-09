@@ -6,7 +6,6 @@ const { fb } = require('../db/firebase')
 // helper functions
 const { parCheck, bonusCheck, totalCheck, cleanForGoogle } = require('./scoreUtils')
 const { googleMain } = require('./sheetsUpdater')
-const players = require('./players')
 
 const url = 'https://www.flashscore.com/golf/pga-tour/masters-tournament/'
 
@@ -20,7 +19,6 @@ const createScoreTable = async () => {
     const $ = cheerio.load(html)
 
     const scoreTable = {}
-    const playerLookUp = players
 
     $('.table-main > table > tbody').children('tr').each((i, elem) => {
       // stats
@@ -39,14 +37,7 @@ const createScoreTable = async () => {
       // bonus check
       const bonus = bonusCheck(position)
 
-      // lookup the player_id from Player postGres
-      const id = playerLookUp[player]
-
-      if (id) {
-        scoreTable[id] = { id, player, position, bonus, par, thru, today, rnd_1, rnd_2, rnd_3, rnd_4, total }
-      } else {
-        console.log(player, 'is not in the postgres database')
-      }
+      scoreTable[player] = { player, position, bonus, par, thru, today, rnd_1, rnd_2, rnd_3, rnd_4, total }      
 
     })
 
