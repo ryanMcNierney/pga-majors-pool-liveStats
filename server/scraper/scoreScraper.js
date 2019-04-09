@@ -4,8 +4,9 @@ const cheerio = require('cheerio')
 const { fb } = require('../db/firebase')
 
 // helper functions
-const { parCheck, bonusCheck, totalCheck, getPlayers, cleanForGoogle } = require('./scoreUtils')
+const { parCheck, bonusCheck, totalCheck, cleanForGoogle } = require('./scoreUtils')
 const { googleMain } = require('./sheetsUpdater')
+const players = require('./players')
 
 const url = 'https://www.flashscore.com/golf/pga-tour/masters-tournament/'
 
@@ -19,7 +20,7 @@ const createScoreTable = async () => {
     const $ = cheerio.load(html)
 
     const scoreTable = {}
-    const playerLookUp = await getPlayers()
+    const playerLookUp = players
 
     $('.table-main > table > tbody').children('tr').each((i, elem) => {
       // stats

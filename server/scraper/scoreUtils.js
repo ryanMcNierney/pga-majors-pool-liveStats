@@ -37,24 +37,24 @@ const totalCheck = (position, totalNum) => {
   return total
 }
 
-const getPlayers = () => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const lookUp = {}
-      await Player.findAll({ attributes: ['id', 'short_name'] }).then(data => {
-        for (let i = 0; i < data.length; i++) {
-          const { id, short_name } = data[i].dataValues
-          lookUp[short_name] = Number(id)
-        }
-        resolve(lookUp)
-      })
-    } catch (e) {
-      console.log('Error getting player lookup')
-      reject(e)
-    }
+// const getPlayers = () => {
+//   return new Promise(async (resolve, reject) => {
+//     try {
+//       const lookUp = {}
+//       await Player.findAll({ attributes: ['id', 'short_name'] }).then(data => {
+//         for (let i = 0; i < data.length; i++) {
+//           const { id, short_name } = data[i].dataValues
+//           lookUp[short_name] = Number(id)
+//         }
+//         resolve(lookUp)
+//       })
+//     } catch (e) {
+//       console.log('Error getting player lookup')
+//       reject(e)
+//     }
 
-  })
-}
+//   })
+// }
 
 const cleanForGoogle = (scoreTable) => {
   const googleArr = []
@@ -67,4 +67,4 @@ const cleanForGoogle = (scoreTable) => {
   return googleArr
 }
 
-module.exports = { parCheck, bonusCheck, totalCheck, getPlayers, cleanForGoogle }
+module.exports = { parCheck, bonusCheck, totalCheck, cleanForGoogle }
