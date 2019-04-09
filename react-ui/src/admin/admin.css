@@ -1,0 +1,43 @@
+/* Admin */
+#admin {
+  margin: 8px;
+}
+
+/* LiveData */
+#live-data {
+  margin-top: 20px;
+}
+
+#timer {
+  margin-top: 10px;
+}
+
+#live-data-buttons {
+  margin-top: 10px;
+}
+
+#live-data-buttons > button {
+  margin-right: 10px;
+  padding: 8px;
+}
+
+#live-data-on {
+  background-color: chartreuse;
+}
+
+#live-data-off {
+  background-color: crimson;
+}
+
+/* Scores */
+#score-table {
+  margin-top: 20px;
+}
+
+table {
+  width: 100%
+}
+
+#table-header {
+  text-align: left;
+}

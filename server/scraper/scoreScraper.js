@@ -5,9 +5,9 @@ const { fb } = require('../db/firebase')
 
 // helper functions
 const { parCheck, bonusCheck, totalCheck, getPlayers, cleanForGoogle } = require('./scoreUtils')
-// const { googleMain } = require('./sheetsUpdater')
+const { googleMain } = require('./sheetsUpdater')
 
-const url = 'https://www.flashscore.com/golf/pga-tour/valspar-championship/'
+const url = 'https://www.flashscore.com/golf/pga-tour/masters-tournament/'
 
 const createScoreTable = async () => {
   try {
@@ -69,9 +69,11 @@ const updateLiveData = async (scoreTable) => {
     if (liveData) {
       // get archiveRef & archiveCount
       const archiveRef = await fb.ref('masters/archive')
-      let archiveCount
+      let archiveCount = 0
       await archiveRef.child('count').once('value', snapshot => {
-        archiveCount = snapshot.val()
+        if (snapshot.val()) {
+          archiveCount = snapshot.val()
+        }
       })
 
       // add live-data to archive & update count
@@ -129,6 +131,7 @@ const liveDataON = () => {
 
 const liveDataOFF = () => {
   fb.ref('masters/live-data-status').set(false)
+  console.log('----LIVE DATA IS OFF----')
 }
 
 module.exports = { liveDataON, liveDataOFF }

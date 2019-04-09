@@ -1,5 +1,5 @@
 // firebase init
-const Firebase = require('firebase/app')
+const Firebase = require('firebase')
 require('firebase/database')
 if (process.env.NODE_ENV !== 'production') require('../../.env')
 

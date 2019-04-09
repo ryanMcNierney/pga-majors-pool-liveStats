@@ -7,6 +7,8 @@ const parCheck = (position, par) => {
     newPar = 32
   } else if (position === 'CUT') {
     newPar = par + 16
+  } else if (isNaN(par)) {
+    newPar = 0
   } else {
     newPar = par
   }

@@ -9,42 +9,39 @@ const PORT = process.env.PORT || 5000;
 
 // Multi-process to utilize all CPU cores.
 if (!isDev && cluster.isMaster) {
-  console.error(`Node cluster master ${process.pid} is running`);
+    console.error(`Node cluster master ${process.pid} is running`);
 
-  // Fork workers.
-  for (let i = 0; i < numCPUs; i++) {
-    cluster.fork();
-  }
+    // Fork workers.
+    for (let i = 0; i < numCPUs; i++) {
+        cluster.fork();
+    }
 
-  cluster.on('exit', (worker, code, signal) => {
-    console.error(`Node cluster worker ${worker.process.pid} exited: code ${code}, signal ${signal}`);
-  });
+    cluster.on('exit', (worker, code, signal) => {
+        console.error(`Node cluster worker ${worker.process.pid} exited: code ${code}, signal ${signal}`);
+    });
 
 } else {
-  const app = express();
+    const app = express();
 
-  // Priority serve any static files.
-  app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
+    // Priority serve any static files.
+    app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
-  // Answer API requests.
-  app.get('/api', function (req, res) {
-    res.set('Content-Type', 'application/json');
-    res.send('{"message":"Hello from the custom server!"}');
-  });
+    // api router
+    app.use('/api', require('./api')) // matches all requests to /api
 
-  // All remaining requests return the React app, so it can handle routing.
-  app.get('*', function (request, response) {
-    response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
-  });
-
-  const init = async () => {
-    await db.sync()
-    app.listen(PORT, function () {
-      console.error(`Node ${isDev ? 'dev server' : 'cluster worker ' + process.pid}: listening on port ${PORT}`);
+    // All remaining requests return the React app, so it can handle routing.
+    app.get('*', function (request, response) {
+        response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
     });
-  }
 
-  init()
+    const init = async () => {
+        await db.sync()
+        app.listen(PORT, function () {
+            console.error(`Node ${isDev ? 'dev server' : 'cluster worker ' + process.pid}: listening on port ${PORT}`);
+        });
+    }
+
+    init()
 
 }
 
