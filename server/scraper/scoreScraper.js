@@ -11,7 +11,7 @@ const url = 'https://www.flashscore.com/golf/pga-tour/masters-tournament/'
 
 const createScoreTable = async () => {
   try {
-    const browser = await puppeteer.launch()
+    const browser = await puppeteer.launch({ args: ['--no-sandbox'] })
     const page = await browser.newPage()
     await page.goto(url)
     await page.waitForSelector('.fs-table')
